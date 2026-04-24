@@ -6,7 +6,7 @@
 /*   By: afranco- <afranco-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 11:57:32 by afranco-          #+#    #+#             */
-/*   Updated: 2026/04/23 16:40:46 by afranco-         ###   ########.fr       */
+/*   Updated: 2026/04/24 20:45:22 by afranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@ void	trimbuffer(char *buffer)
 	newline = str_search(buffer, '\n');
 	if (newline)
 	{
+		newline++;
+		printf("newline:%s\n", newline);
 		while (newline[i++])
 			buffer[i - 1] = newline[i - 1];
 		i--;
+		printf("trim1:%s\n", buffer);
+		printf("trim2:%s\n", buffer + i);
 	}
 	while (buffer[i++])
 		buffer[i - 1] = '\0';
@@ -35,22 +39,35 @@ char *get_next_line(int fd)
 	int			bytes;
 	char		*result;
 
+	buffer[BUFFER_SIZE] = '\0';
 	trimbuffer(buffer);
+	printf("InitialBuffer:%s;\n", buffer);
 	result = my_strdup("\n");
 	if (result == NULL)
 		return (NULL);
-	buffer[BUFFER_SIZE] = '\0';
 	bytes = read(fd, buffer, BUFFER_SIZE);
+	printf("buffer:%s; result:%s;\n", buffer, result);
 	while (bytes)
 	{
 		if (str_search(buffer, '\n'))
 			break ;
 		result = strjoin_newline(result, buffer);
 		bytes = read(fd, buffer, BUFFER_SIZE);
+		printf("buffer:%s; result:%s;\n", buffer, result);
 		if (bytes == -1)
 			return (free(result), NULL);
 	}
+	result = strjoin_newline(result, buffer);
+	printf("FinalBuffer:%s\n", buffer);
 	if (!result[1])
 		return (NULL);
 	return (result);
 }
+
+/*int main()
+{
+	char *teste = my_strdup("yyyysh\njjjj");
+	printf("teste:%s\n", teste);
+	trimbuffer(teste);
+	printf("teste:%s\n", teste);
+}*/
