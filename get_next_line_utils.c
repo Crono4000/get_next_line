@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afranco- <afranco-@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: afranco- <afranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:05:14 by afranco-          #+#    #+#             */
-/*   Updated: 2026/04/24 18:55:53 by afranco-         ###   ########.fr       */
+/*   Updated: 2026/04/26 00:58:24 by afranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,43 +44,25 @@ char	*strjoin_newline(char const *s1, char const *s2)
 	int		index1;
 	int		index2;
 
-	str = malloc(sizeof(char) * (special_strlen(s1, "\n") + special_strlen(s2, "\n") + 2));
+	str = malloc(sizeof(char) * (special_strlen(s1, "") + special_strlen(s2, "\n") + 2));
 	if (str == NULL)
 		return (NULL);
 	index1 = 0;
 	index2 = 0;
-	while (s1[index1] != '\n' && s1[index1])
+	while (s1[index1])
 	{
 		str[index1] = s1[index1];
 		index1++;
 	}
-	while (s2[index2] != '\n' && s2[index2])
+	while (s2[index2])
 	{
 		str[index1 + index2] = s2[index2];
 		index2++;
+        if (s2[index2 - 1] == '\n')
+            break ;
 	}
-	str[index1 + index2] = '\n';
-	str[index1 + index2 + 1] = '\0';
+	str[index1 + index2] = '\0';
 	return (str);
-}
-
-char	*my_strdup(const char *src)
-{
-	char	*new;
-	int		size;
-	int		ii;
-
-	size = special_strlen(src, "");
-	new = (char *)malloc(sizeof(char) * (size + 1));
-	if (new == NULL)
-		return (NULL);
-	ii = 0;
-	while (ii < size + 1)
-	{
-		new[ii] = src[ii];
-		ii++;
-	}
-	return (new);
 }
 
 /*int main()
