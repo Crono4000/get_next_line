@@ -6,7 +6,7 @@
 /*   By: afranco- <afranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 13:33:31 by afranco-          #+#    #+#             */
-/*   Updated: 2026/04/26 00:53:57 by afranco-         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:25:38 by afranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-size_t	special_strlen(const char *str, char *set);
+size_t	special_strlen(const char *str);
+size_t	normal_strlen(const char *str);
 char	*str_search(const char *s, char c);
-char	*strjoin_newline(char const *s1, char const *s2);
+char	*strjoin_newline(char *s1, char const *s2, int free_s1);
 char	*get_next_line(int fd);
 
 #endif

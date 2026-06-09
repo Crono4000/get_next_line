@@ -6,7 +6,7 @@
 /*   By: afranco- <afranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:05:14 by afranco-          #+#    #+#             */
-/*   Updated: 2026/04/26 00:58:24 by afranco-         ###   ########.fr       */
+/*   Updated: 2026/04/27 15:56:34 by afranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,34 @@ char	*str_search(const char *s, char c)
 	return (NULL);
 }
 
-size_t	special_strlen(const char *str, char *set)
+size_t	normal_strlen(const char *str)
 {
 	unsigned int	current;
 
 	current = 0;
-	while (!str_search(set, str[current]))
+	while (str[current])
 		current++;
 	return (current);
 }
 
-char	*strjoin_newline(char const *s1, char const *s2)
+size_t	special_strlen(const char *str)
+{
+	unsigned int	current;
+
+	current = 0;
+	while (str[current++])
+		if (str[current - 1] == '\n')
+			return (current);
+	return (current - 1);
+}
+
+char	*strjoin_newline(char *s1, char const *s2, int  free_s1)
 {
 	char	*str;
 	int		index1;
 	int		index2;
 
-	str = malloc(sizeof(char) * (special_strlen(s1, "") + special_strlen(s2, "\n") + 2));
+	str = malloc(sizeof(char) * (normal_strlen(s1) + special_strlen(s2) + 1));
 	if (str == NULL)
 		return (NULL);
 	index1 = 0;
@@ -53,7 +64,9 @@ char	*strjoin_newline(char const *s1, char const *s2)
 	{
 		str[index1] = s1[index1];
 		index1++;
-	}
+    }
+	if (free_s1)
+    	free(s1);
 	while (s2[index2])
 	{
 		str[index1 + index2] = s2[index2];

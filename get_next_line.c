@@ -6,7 +6,7 @@
 /*   By: afranco- <afranco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 11:57:32 by afranco-          #+#    #+#             */
-/*   Updated: 2026/04/26 00:50:38 by afranco-         ###   ########.fr       */
+/*   Updated: 2026/06/09 01:39:41 by afranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	trimbuffer(char *buffer)
 		//printf("trim1:%s\n", buffer);
 		//printf("trim2:%s\n", buffer + i);
 	}
-	while (buffer[i++])
+	while (i++ <= BUFFER_SIZE)
 		buffer[i - 1] = '\0';
 }
 
@@ -42,7 +42,7 @@ char *get_next_line(int fd)
 	buffer[BUFFER_SIZE] = '\0';
 	trimbuffer(buffer);
 	//printf("InitialBuffer:%s;\n", buffer);
-    result = strjoin_newline("", buffer);
+    result = strjoin_newline("", buffer, 0);
 	if (result == NULL)
 		return (NULL);
 	bytes = 1;
@@ -53,14 +53,16 @@ char *get_next_line(int fd)
 		//printf("buffer:%s; result:%s;\n", buffer, result);
 		if (bytes == -1)
 			return (free(result), NULL);
+        //printf("buffer:%s;\n", buffer);
         if (bytes)
-            result = strjoin_newline(result, buffer);
+        {
+            buffer[bytes] = '\0';
+            result = strjoin_newline(result, buffer, 1);
+        }
 	}
     //printf("FinalBuffer:%s;\n", buffer);
-	if (special_strlen(buffer, "") == 0)
-		return (NULL);
-	if (!str_search(result, '\n'))
-		return (strjoin_newline(result, "\n"));
+	if (normal_strlen(buffer) == 0)
+		return (free(result), NULL);
 	return (result);
 }
 
