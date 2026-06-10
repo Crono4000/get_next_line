@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afranco- <afranco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afranco- <afranco-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 16:20:42 by afranco-          #+#    #+#             */
-/*   Updated: 2026/04/27 15:22:34 by afranco-         ###   ########.fr       */
+/*   Updated: 2026/06/10 20:50:30 by afranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 	line = get_next_line(fd);
 	while (line)
 	{
-		printf("line:%s", line);
+		printf("%s", line);
         free(line);
 		line = get_next_line(fd);
 	}
