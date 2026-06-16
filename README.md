@@ -21,7 +21,7 @@ A function that lets you extract line by line from a file.
 
 1. Suppose you have a simple program `main.c`:
    ```c
-   	#include "get_next_line.h"
+	#include "get_next_line.h"
 	#include <fcntl.h>
 
 	int main(int argc, char **argv)
@@ -50,9 +50,11 @@ A function that lets you extract line by line from a file.
    ./program
    ```
 
-## Explanation
+## How it works
 
-The function get_next_line has a vriab
+The algorithm uses a static buffer to preserve unread data between function calls. 
+It first extracts any remaining characters from the previous read, then repeatedly reads chunks of size BUFFER_SIZE until a newline character or end-of-file is reached. 
+The resulting line is dynamically constructed by concatenating the read chunks, while any excess data after the newline is kept in the static buffer for the next call.
 
 ## Resources
 

@@ -6,7 +6,7 @@
 /*   By: afranco- <afranco-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 11:57:32 by afranco-          #+#    #+#             */
-/*   Updated: 2026/06/10 20:45:40 by afranco-         ###   ########.fr       */
+/*   Updated: 2026/06/16 13:36:57 by afranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ char	*get_next_line(int fd)
 	int			bytes;
 	char		*result;
 
-	buffer[BUFFER_SIZE] = '\0';
 	trimbuffer(buffer, &bytes);
 	result = strjoin_newline("", buffer, 0);
-	if (result == NULL)
+	if (result == NULL || BUFFER_SIZE <= 0)
 		return (NULL);
 	while (bytes && !str_search(buffer, '\n'))
 	{
